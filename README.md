@@ -1,5 +1,3 @@
-
-
 # Object Orientation Basics
 
 ## Description
@@ -147,17 +145,17 @@ And if we run the specs again, we see this output:
 ```bash
 1) Book properties has a title
      Failure/Error: expect(book.title).to eq("And Then There Were None")
-       
+
        expected: "And Then There Were None"
             got: nil
-       
+
        (compared using ==)
      # ./spec/01_book_spec.rb:14:in `block (3 levels) in <top (required)>'
 ```
 
 So, it seems like, if I'm reading the test correctly, we are initializing a book with "And Then There Were None" as an argument, and then magically, when we call `title` on that book, it should return "And Then There Were None".
 
-This means that somewhere between calling `.new` and `.title`, our book is somehow getting assigned a title. Where *must* that be happening, then?
+This means that somewhere between calling `.new` and `.title`, our book is somehow getting assigned a title. Where _must_ that be happening, then?
 
 In the `initialize` method! It really can't happen anywhere else.
 
@@ -187,10 +185,10 @@ Easy as pie. Run those specs again and let's see what happens:
 ```bash
 1) Book properties has a title
      Failure/Error: expect(book.title).to eq("And Then There Were None")
-       
+
        expected: "And Then There Were None"
             got: nil
-       
+
        (compared using ==)
      # ./spec/01_book_spec.rb:14:in `block (3 levels) in <top (required)>'
 ```
@@ -237,7 +235,7 @@ That's a weird looking "undefined method" error. It says we have no `author=` me
 
 What? That's gotta be a mistake, right? Nope.
 
-Let's step back for a second. That `title` method we wrote before is what is called a "getter". We call it this because, well, it "gets" a property for us. But what happens if we want to, say, *set* a property, or an instance variable? This is where "setters" come into play.
+Let's step back for a second. That `title` method we wrote before is what is called a "getter". We call it this because, well, it "gets" a property for us. But what happens if we want to, say, _set_ a property, or an instance variable? This is where "setters" come into play.
 
 Setters are methods that allow us to set instance variables. It seems weird, but they all are named like this: `property=`. This is because Ruby gives us a nice bit of syntactic sugar that allows us to use these methods like:
 
@@ -413,7 +411,7 @@ Run `learn spec/01_book_spec.rb` now, and we get the following:
 
 So, this is pretty silly. Books can't turn their own pages, but we'll use the missing `turn_page` method to demonstrate that we don't only give our classes properties.
 
-Like I said above, OOP gives us the opportunity to encapsulate both data *and* behavior within our classes. Here, we want to be able to make our books turn their pages.
+Like I said above, OOP gives us the opportunity to encapsulate both data _and_ behavior within our classes. Here, we want to be able to make our books turn their pages.
 
 How do we give our books a behavior? Well, we give them methods that do stuff! So, let's give our book a `turn_page` method:
 
@@ -471,7 +469,7 @@ A quick run of the tests gives us this:
      # ./spec/01_book_spec.rb:35:in `block (3 levels) in <top (required)>'
 ```
 
-It looks like our `turn_page` method doesn't really need to *do* much aside from print something to the screen. So, to make the test pass, let's add a `puts` statement to our `turn_page` method:
+It looks like our `turn_page` method doesn't really need to _do_ much aside from print something to the screen. So, to make the test pass, let's add a `puts` statement to our `turn_page` method:
 
 ```ruby
 
@@ -542,11 +540,14 @@ This is where Attribute Accessors and Attribute Readers come into play. (There a
 This is a really simplistic explanation, but here's what they do:
 
 1. Attribute Readers
-  * Attribute readers give us a getter, or reader, for free.
-  * In other words, if we have an attribute reader (`attr_reader`) for `:name`, Ruby will create a `name` method for us.
+
+- Attribute readers give us a getter, or reader, for free.
+- In other words, if we have an attribute reader (`attr_reader`) for `:name`, Ruby will create a `name` method for us.
+
 2. Attribute Accessors
-  * Attribute accessors give us both a getter and a setter for free!
-  * In other words, if we have an attribute accessor (`attr_accessor`) for `:name`, Ruby will create both `name` and `name=` methods for us.
+
+- Attribute accessors give us both a getter and a setter for free!
+- In other words, if we have an attribute accessor (`attr_accessor`) for `:name`, Ruby will create both `name` and `name=` methods for us.
 
 We can really, really simplify our code now! Since the `author`, `page_count`, and `genre` setters or getters do not do anything special (they just set properties), we can turn those into `attr_accessors`:
 
